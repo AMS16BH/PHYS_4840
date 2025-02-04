@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import sys
-sys.path.append('\functions_lib.py')
+sys.path.append('.github/function_lib')
 
 # and import your functions library
 
