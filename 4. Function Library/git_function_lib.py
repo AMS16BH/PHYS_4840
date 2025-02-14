@@ -13,7 +13,7 @@ COMMIT_MESSAGE = "Automated commit from Python Script."
 
 def authenticate_github(token):
     headers = {'Authorization': f'token {token}'}
-    response = requests.get("https://api.github.com/user", headers=headers)
+    response = requests.get("https://github.com/AMS16BH/PHYS-4840.git", headers=headers)
     if response.status_code == 200:
         print("Authentication successful!")
     else:
