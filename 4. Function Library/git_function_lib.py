@@ -13,7 +13,7 @@ COMMIT_MESSAGE = "Automated commit from Python Script."
 
 def authenticate_github(token):
     headers = {'Authorization': f'token {token}'}
-    response = requests.get("https://github.com/AMS16BH/PHYS-4840.git", headers=headers)
+    response = requests.get("https://github.com/AMS16BH/PHYS-4840", headers=headers)
     if response.status_code == 200:
         print("Authentication successful!")
     else:
@@ -40,14 +40,18 @@ def upload_to_github():
         print("Error: Repository path does not exist!")
         return
 
-    git_remote_url = f"https://{access_token}@github.com/{github_username}/{github_repo}.git"
+    print("\nFetching latest changes from GitHUb...")
+    run_command("git pull origin main --rebase", cwd=repo_path)
 
-    run_command(f"git remote set-url origin {git_remote_url}", cwd=repo_path)
-
-
+    print("\nAdding changes to Git...")
     run_command("git add .",cwd=repo_path)
+
+    print("\nCommitting changes...")
     run_command(f'git commit -m "{COMMIT_MESSAGE}"',cwd=repo_path)
+
+    print("\nPushing changes to GitHub...")
     run_command("git push origin main", cwd=repo_path)
+
 
 if __name__ == "__main__":
     upload_to_github()
