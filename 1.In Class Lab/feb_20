@@ -1,0 +1,62 @@
+# Seek Help!!! --> https://numpy.org/devdocs/reference/generated/numpy.polynomial.legendre.leggauss.html
+import numpy as np
+
+def f(x):
+    return x**2  # Some function thats easy to integrate by hand and hence verify
+
+# Number of points (n) for Gauss-Legendre Quadrature
+n = 1000
+
+# Compute the Gauss-Legendre Quadrature points (roots of the Legendre polynomial) and weights
+root, weights = np.polynomial.legendre.leggauss(n)
+
+#print the roots and weights for the points
+print('root',root)
+print('weight', weights)
+
+# Compute the integral approximation manually using a for loop
+#iterating through each legendre polynomial
+    #grab the root for this polynomial
+    #grap the weight for this polynomial
+    #Evaluate function at the root
+    # Apply weight
+    # append to running sum
+
+integral_approx = 0
+exact_integral = f(1)+f(-1)
+
+for i in range(n):
+    point = root[i]
+    weight = weights[i]
+    func_value = f(point)
+    weighted_value = weight * func_value
+    integral_approx += weighted_value
+
+# Print final comparison
+print("\nFinal Results:")
+print(f"Approximated integral using Gauss-Legendre Quadrature: {integral_approx}")
+print(f"Exact integral: {exact_integral}")
+print(f"Error: {abs(integral_approx - exact_integral)}")
+
+##################
+
+#Gauss Legendre and Data Cleaning Example
+
+'''import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 3e6, 1000)  # Some x data
+y = np.exp(-x / 1e5) * 2.5e-13  # some y data
+
+# Suppose I only want data where y is bigger than some value
+threshold_y = 0#.2e-13     
+filtered_indices = y > threshold_y #find the places (indices) where the y values are bigger than the treshold
+x_filtered = x[filtered_indices]   #use the locations of those places to create a new list of x
+y_filtered = y[filtered_indices]   # and y
+
+plt.scatter(x_filtered, y_filtered)
+plt.axhline(y=threshold_y, color="red", linestyle="--", label=f"Cutoff: {threshold_y:.2e}")
+plt.xlabel("X axis")
+plt.ylabel("Y axis")
+plt.legend()
+plt.show()'''
