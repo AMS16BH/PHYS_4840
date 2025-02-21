@@ -125,7 +125,13 @@ def plot_integral_test(
     simp_time, simp_result, simp_error = [], [], []
     romb_time, romb_result, romb_error = [], [], []
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(8,6))
+
+    ax.set_xlabel("Time (s)")
+    ax.set_ylabel("Integration Error")
+    ax.grid(True, which='both',ls="--", lw=0.5)
+    ax.set_xscale("log")
+    ax.set_yscale("log") 
 
     for i in range(N):
 
@@ -137,19 +143,17 @@ def plot_integral_test(
         time_s, result_s = timing_function(simpsons, x_data, y_data, i+1)
         simp_time.append(time_s)
         simp_result.append(result_s)
-        simp_error.append(result_s/(i+1))
+        simp_error.append((result_s/(i+1))**2)
 
         time_r, result_r = timing_function(romberg, x_data, y_data, max_order)
         romb_time.append(time_r)
         romb_result.append(result_r)
-        romb_error.append(result_r/(max_order))
-    
-    
-    #ax.set_xscale("log")
-    #ax.set_yscale("log")    
+        romb_error.append((result_r/max_order)**4)
+
     ax.plot(trap_time, trap_error,linestyle='-',c='g')
     ax.plot(simp_time, simp_error,linestyle='-',c="r")
     ax.plot(romb_time, romb_error,linestyle='-',c="b")
+    
     plt.show()
 
 plot_integral_test()
