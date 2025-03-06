@@ -1,1 +1,18 @@
+import numpy as np
+import math
 
+def partial_sum(x,n):
+
+	partial_sum = ((x**(n+1))-1)/(x-1)
+
+	return partial_sum
+
+def sequence(n):
+
+	sequence = 1/(1-n)
+
+	return sequence
+
+print(f'(a): {partial_sum(2,1)}')	
+print(f'(b): {partial_sum(2,1)/2}')
+print(f'(c): {sequence(2)}')
