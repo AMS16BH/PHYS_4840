@@ -1,18 +1,5 @@
-import numpy as np
-import math
+Describe a numerical integration problem and explain which integration
+method you would use to solve this problem, keeping in mind the balance between accuracy
+and computation time. Justify your choice
 
-def partial_sum(x,n):
-
-	partial_sum = ((x**(n+1))-1)/(x-1)
-
-	return partial_sum
-
-def sequence(n):
-
-	sequence = 1/(1-n)
-
-	return sequence
-
-print(f'(a): {partial_sum(2,1)}')	
-print(f'(b): {partial_sum(2,1)/2}')
-print(f'(c): {sequence(2)}')
+It depends on the function and acceptable error; when not expressed in closed-form numerical integration relys on approximation.I would prefer Simpsons on the simplicity of control with slicing/step to better processing time and error rate. The variation between error and true value is reduced on increased slice/steps but becomes marginal after 100 in "most" cases until it hits the limit of python. 
