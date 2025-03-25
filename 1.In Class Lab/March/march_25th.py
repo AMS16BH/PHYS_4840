@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 
-sys.path.append('/d/users/austins/Desktop/PHYS_4840/4. Function Library/')
+sys.path.append('/d/users/user/...')
 import my_functions_lib as lib
 
 def f(x,t):
