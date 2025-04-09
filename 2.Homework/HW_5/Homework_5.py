@@ -110,5 +110,104 @@ plt.show()
 
 ########################
 
+# Question 4 & 5
+'''
+Python Second-Order RK = 0.022705307928845286
+Python Fourth-Order RK = 0.04493305995129049
+
+Running RK4.exe...100 time steps
+ Integration complete. Results saved to rk4_results.dat
+Compilation time: .012122233 seconds
+Execution time: .008939918 seconds
+
+Running RK4.exe...10,000 time steps
+ Integration complete. Results saved to rk4_results.dat
+Compilation time: .062746556 seconds
+Execution time: .022808982 seconds
+
+Running RK2.exe...100 time steps
+ Integration complete. Results saved to rk2_results.dat
+Compilation time: .061417671 seconds
+Execution time: .004015211 seconds
+
+Running RK2.exe...10,000 time step
+ Integration complete. Results saved to rk2_results.dat
+Compilation time: .056531487 seconds
+Execution time: .023005600 seconds
+bash-5.1$ 
+
+At 10,000 time steps python RK2 is faster than fortran RK2, but fortran RK4 is twice as fast and comparable in speed to RK2 in python.
+
+'''
+import numpy as np
+import time
+import matplotlib.pyplot as plt
+import os
+import sys
+import timeit
+
+def f(x,t):
+    return -x**3 + np.sin(t)
+
+def second_order_RK(x0,t0,t_end,dt):
+
+    t_values = np.arange(t0, t_end + dt, dt)
+    x_values = np.zeros(len(t_values))
+    x_values[0] = x0
+
+    for i in range(1, len(t_values)):
+        t = t_values[i - 1]
+        x = x_values[i - 1]
+        k1 = dt*f(x, t)
+        k2 = dt*f(x+0.5*k1,t+0.5*dt)
+        x_values[i] = x + k2
+
+    return t_values, x_values
+
+def fourth_order_RK(x0,t0,t_end,dt):
+
+    t_values = np.arange(t0, t_end + dt, dt)
+    x_values = np.zeros(len(t_values))
+    x_values[0] = x0
+
+    for i in range(1, len(t_values)):
+        t = t_values[i - 1]
+        x = x_values[i - 1]
+        k1 = dt*f(x, t)
+        k2 = dt*f(x+0.5*k1,t+0.5*dt)
+        k3 = dt*f(x+0.5*k2,t+0.5*dt)
+        k4 = dt*f(x+k3,t+dt)
+        x_values[i] = (k1+2*k2+2+k3+k4)/6
+
+    return t_values, x_values
+
+t0 = 0.0
+t_end = 10.0
+dt = 0.001
+x0 = 0
+
+
+fig, ax = plt.subplots(1,2)
+
+start_2 = timeit.default_timer()
+t_values, x_values = second_order_RK(x0,t0,t_end,dt)
+ax[0].plot(t_values, x_values)
+ax[0].set_title('Python 2-OD')
+stop_2 = timeit.default_timer()
+
+start_4 = timeit.default_timer()
+t_values, x_values = fourth_order_RK(x0,t0,t_end,dt)
+ax[1].plot(t_values, x_values)
+ax[1].set_title('Python 4-OD')
+stop_4 = timeit.default_timer()
+
+
+print('Time: ', stop_2 - start_2)
+print('Time: ', stop_4 - start_4)
+
+plt.show()
+
+
+
 
 
