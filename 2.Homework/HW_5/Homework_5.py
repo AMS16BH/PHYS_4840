@@ -207,7 +207,7 @@ print('Time: ', stop_4 - start_4)
 
 plt.show()
 
-
-
+######
+#6: Makes the file identified executable in the cmd terminal but requires a #!/usr/bin/python## at the top.
 
 
