@@ -1,1 +1,38 @@
+import numpy as np
+import matplotlib.pyplot as plt
 
+# Load data
+data_one = np.loadtxt("/d/users/austins/Desktop/PHYS_4840/2.Homework/HW_6/perturbed_pendulum_data_45.txt", skiprows=1)
+t, x1, y1, x2, y2 = data_one.T
+data_two = np.loadtxt("/d/users/austins/Desktop/PHYS_4840/2.Homework/HW_6/perturbed_pendulum_data_90.txt", skiprows=1)
+t2, x12, y12, x22, y22 = data_two.T
+data_three = np.loadtxt("/d/users/austins/Desktop/PHYS_4840/2.Homework/HW_6/perturbed_pendulum_data_135.txt", skiprows=1)
+t3, x13, y13, x23, y23 = data_three.T
+
+# Plot
+
+fig, ax = plt.subplots(3)
+
+
+ax[0].plot(x1, y1, marker='.', label="Mass 1 (Path)")
+ax[0].plot(x2, y2, marker='.', label="Mass 2 (Path)", color="red")
+ax[0].scatter([0], [0], color="black", marker="o", label="Pivot")  # Fixed pivot point
+
+
+ax[1].plot(x12, y12, marker='.', label="Mass 1 (Path)")
+ax[1].plot(x22, y22, marker='.', label="Mass 2 (Path)", color="red")
+ax[1].scatter([0], [0], color="black", marker="o", label="Pivot")  # Fixed pivot point
+
+
+ax[2].plot(x13, y13, marker='.', label="Mass 1 (Path)")
+ax[2].plot(x23, y23, marker='.', label="Mass 2 (Path)", color="red")
+ax[2].scatter([0], [0], color="black", marker="o", label="Pivot")  # Fixed pivot point
+
+
+# Formatting
+plt.axis("equal")
+plt.grid()
+
+# Save figure
+plt.savefig('three_motions_graph.png')
+plt.close()
