@@ -1,3 +1,3 @@
 #!/bin/bash
 
-scp batch.sh exec.sh mjoyce8@medicinebow.arcc.uwyo.edu:/home/mjoyce8/
+scp batch.sh exec.sh asmit224@medicinebow.arcc.uwyo.edu:/home/asmit224/
